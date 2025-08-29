@@ -11,7 +11,12 @@ export default defineConfig({
     lib: {
       name: "Phosphor",
       entry: resolve(__dirname, "src/index.ts"),
-      fileName: (format, name) => `${name}.${format}.js`,
+      fileName: (format, name) => {
+        if (format === "cjs") {
+          return `${name}.${format}`;
+        }
+        return `${name}.${format}.js`;
+      },
     },
     rollupOptions: {
       external: Object.keys(pkg.peerDependencies),
